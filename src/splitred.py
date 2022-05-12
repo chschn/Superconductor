@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # # Split the data into training and test data - full dataset
+# # Split the data into training and test data - feature reduced
 
 # ## Importing the required modules
 
@@ -24,20 +24,12 @@ from util import tsplit
 start = time.time()
 
 
-# ## Normalizing the features
-
-# In[10]:
-
-
-norm('../data/sup.csv', '../data/sup_norm.csv')
-
-
 # ## Split into training and test data
 
 # In[11]:
 
 
-tsplit('../data/sup_norm.csv', '../data/sup_norm_tr.csv', '../data/sup_norm_te.csv')
+tsplit('../data/sup_dedup_norm_red.csv', '../data/sup_dedup_norm_red_tr.csv', '../data/sup_dedup_norm_red_te.csv')
 
 
 # In[12]:
