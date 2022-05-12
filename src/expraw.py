@@ -40,7 +40,7 @@ start = time.time()
 # In[25]:
 
 
-sup = pd.read_csv("../data/train.csv",sep=',',header=0)
+sup = pd.read_csv("../data/sup.csv",sep=',',header=0)
 sup
 
 
