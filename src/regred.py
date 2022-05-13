@@ -3,11 +3,11 @@
 
 # # Predicting superconductor critical temperatures
 
-# # Regressions on the raw dataset
+# # Regressions on the feature reduced dataset
 
 # ## Importing the required modules
 
-# In[27]:
+# In[5]:
 
 
 from math import sqrt
@@ -33,7 +33,7 @@ from hypopt import knnhyp, treehyp, randhyp, adahyp, svmhyp, xgbhyp
 
 # ## Registering the start time for runtime calculation
 
-# In[28]:
+# In[6]:
 
 
 start = time.time()
@@ -41,7 +41,7 @@ start = time.time()
 
 # ## Set the parameters according to the hyperparameter optimization
 
-# In[64]:
+# In[7]:
 
 
 # linear regression:
@@ -73,15 +73,15 @@ subsample_xgb = 1.0
 
 # ## Read the training and test data from file
 
-# In[54]:
+# In[8]:
 
 
-x_train, x_test, y_train, y_test = read_train_test('../data/sup_norm_tr.csv', '../data/sup_norm_te.csv')
+x_train, x_test, y_train, y_test = read_train_test('../data/sup_dedup_norm_red_tr.csv', '../data/sup_dedup_norm_red_te.csv')
 
 
 # ## Linear regression
 
-# In[55]:
+# In[9]:
 
 
 lin, lin_pred, rmse_lin = linreg(x_train, x_test, y_train, y_test, grd=grd)
@@ -89,7 +89,7 @@ lin, lin_pred, rmse_lin = linreg(x_train, x_test, y_train, y_test, grd=grd)
 
 # ## kNN regression
 
-# In[65]:
+# In[10]:
 
 
 knn, knn_pred, rmse_knn = knnreg(x_train, x_test, y_train, y_test, k=kmin)
@@ -97,7 +97,7 @@ knn, knn_pred, rmse_knn = knnreg(x_train, x_test, y_train, y_test, k=kmin)
 
 # ## Decision Tree regression
 
-# In[57]:
+# In[11]:
 
 
 tr, tr_pred, rmse_tr = treereg(x_train, x_test, y_train, y_test, max_depth=max_depth_tr, min_samples_split=min_samples_split_tr)
@@ -105,7 +105,7 @@ tr, tr_pred, rmse_tr = treereg(x_train, x_test, y_train, y_test, max_depth=max_d
 
 # ## Random Forest regression
 
-# In[58]:
+# In[12]:
 
 
 rf, rf_pred, rmse_rf = randreg(x_train, x_test, y_train, y_test, max_depth=max_depth_rf, min_samples_split=min_samples_split_rf)
@@ -113,7 +113,7 @@ rf, rf_pred, rmse_rf = randreg(x_train, x_test, y_train, y_test, max_depth=max_d
 
 # ## Ada Boost regression
 
-# In[59]:
+# In[13]:
 
 
 ada, ada_pred, rmse_ada = adareg(x_train, x_test, y_train, y_test, learning_rate=learning_rate_ada, n_estimators=n_estimators_ada)
@@ -121,7 +121,7 @@ ada, ada_pred, rmse_ada = adareg(x_train, x_test, y_train, y_test, learning_rate
 
 # ## SVM regression
 
-# In[60]:
+# In[14]:
 
 
 svm, svm_pred, rmse_svm = svmreg(x_train, x_test, y_train, y_test, C=c_svm, kernel=kernel_svm)
@@ -129,7 +129,7 @@ svm, svm_pred, rmse_svm = svmreg(x_train, x_test, y_train, y_test, C=c_svm, kern
 
 # ## Voting regression
 
-# In[61]:
+# In[15]:
 
 
 est = [("kNN",knn),("lin",lin),("tree",tr),("random",rf)]
@@ -138,7 +138,7 @@ vot, vot_pred, rmse_vot = votreg(x_train, x_test, y_train, y_test, estimators=es
 
 # ## XGBoost regression
 
-# In[62]:
+# In[16]:
 
 
 xgb, xgb_pred, rmse_xgb = xgbreg(x_train, x_test, y_train, y_test, learning_rate=learning_rate_xgb, objective ='reg:squarederror', max_depth=16, subsample=subsample_xgb, colsample_bytree=0.5, min_child_weight=1, eval_metric='rmse')
@@ -146,7 +146,7 @@ xgb, xgb_pred, rmse_xgb = xgbreg(x_train, x_test, y_train, y_test, learning_rate
 
 # ## Joint plot of precictions of the individual algorithms
 
-# In[70]:
+# In[17]:
 
 
 titles = [f"Linear Regression Poly {grd}", f"kNN Regressor k = {kmin}", "Decision Tree Regressor", "Random Forest Regressor", "Ada-Boost Regressor", "SVM Regressor", "Voting Regressor", "XGBoost Regressor"]
@@ -165,16 +165,16 @@ for i in range(1, 9):
     ax.set_xlabel("True Critical Temp / K")
     ax.set_ylabel("Pred. Critical Temp / K")
     ax.legend()
-fig.savefig('../graph/pred_cross_full.jpg', dpi=150)
+fig.savefig('../graph/pred_cross_red.jpg', dpi=150)
 
 
 # ## Comparison of RMSE performances (smaller is better)
 
-# In[72]:
+# In[18]:
 
 
 fig = plt.figure(figsize=(9,5))
-plt.title("RMSE vs. predictor model - full dataset")
+plt.title("RMSE vs. predictor model - simplified")
 names = ["Linear", "kNN", "DecisionTree", "RandomForest", "AdaBoost", "SVM", "Voting", "XGBoost"]
 cl = ["blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue"]
 values = [rmse_lin, rmse_knn, rmse_tr, rmse_rf, rmse_ada, rmse_svm, rmse_vot, rmse_xgb]
@@ -184,12 +184,12 @@ plt.ylim(0, 24)
 plt.xticks(rotation=-15)
 plt.ylabel("RMSE")
 plt.grid(axis='y')
-fig.savefig('../graph/RMSE_full.jpg', dpi=150)
+fig.savefig('../graph/RMSE_red.jpg', dpi=150)
 
 
 # ## Display of feature importances (not applicable to all algorithms)
 
-# In[68]:
+# In[19]:
 
 
 #linf = lin.coef_.tolist()[1:]
@@ -209,7 +209,7 @@ for i in range(1, 5):
 
 # ## Output of elapsed time
 
-# In[69]:
+# In[20]:
 
 
 end = time.time()
