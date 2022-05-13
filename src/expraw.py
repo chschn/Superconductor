@@ -74,7 +74,7 @@ ax2.set_title("Boxplot before normalization")
 ax2.boxplot(sup.iloc[:,split:endr],labels=range(split,endr),medianprops=dict(color="#1ACC94"))
 ax2.set_xticklabels(labels=range(split,endr), rotation=90)
 ax2.set_ylim(0, scale)
-fig.savefig('../graph/Box_raw.jpg')
+fig.savefig('../graph/Box_raw.jpg', dpi=150)
 
 
 # In[28]:
@@ -91,7 +91,7 @@ ax1.set_title("Boxplot before normalization")
 ax1.boxplot(sup.iloc[:,0:endr],labels=range(0,endr),medianprops=dict(color="#1ACC94"))
 ax1.set_xticklabels(labels=range(0,endr), rotation=90)
 ax1.set_ylim(0, scale)
-fig.savefig('../graph/Box_raw_one.jpg')
+fig.savefig('../graph/Box_raw_one.jpg', dpi=150)
 
 
 # ## Displaying true duplicates (i.e. all attributes incl. target are identical)
@@ -128,7 +128,7 @@ fig = plt.figure(figsize=(20,20))
 ax = sns.heatmap(crmx, cmap='YlOrRd', xticklabels=colnum, yticklabels=colnum)
 ax.set_xticklabels(labels=colnum, rotation=90)
 ax.set_yticklabels(labels=colnum, rotation=0)
-fig.savefig('../graph/Corr_heatmap.jpg')
+fig.savefig('../graph/Corr_heatmap.jpg', dpi=150)
 
 
 # ## Display color coded absolute value correlation matrix of selected attributes
@@ -154,7 +154,7 @@ fig = plt.figure(figsize=(10,10))
 ax = sns.heatmap(sup.iloc[:,ix].corr().abs(), cmap='YlOrRd', annot=True, xticklabels=colnum, yticklabels=colnum)
 ax.set_xticklabels(labels=colnum, rotation=90)
 ax.set_yticklabels(labels=colnum, rotation=0)
-fig.savefig('../graph/Corr_select_heatmap_means.jpg')
+fig.savefig('../graph/Corr_select_heatmap_means.jpg', dpi=150)
 
 
 # ## Display scatter matrix for selected attributes plus target
@@ -169,7 +169,7 @@ fig.savefig('../graph/Corr_select_heatmap_means.jpg')
 
 
 pd.plotting.scatter_matrix(sup.iloc[:,ix], figsize=(30,30), c="#1ACC94")
-plt.savefig('../graph/Scatter_select_means.jpg')
+plt.savefig('../graph/Scatter_select_means.jpg', dpi=150)
 
 
 # ## Display PPS Matrix
@@ -187,7 +187,7 @@ predictors_df = pps.predictors(sup.iloc[:,ix], y="critical_temp")
 fig = plt.figure(figsize=(15,7))
 sns.barplot(data=predictors_df, x="x", y="ppscore")
 plt.xticks(rotation=15)
-plt.savefig('../graph/PPS_predictors_means')
+plt.savefig('../graph/PPS_predictors_means.jpg', dpi=150)
 
 
 # In[38]:
@@ -196,7 +196,7 @@ plt.savefig('../graph/PPS_predictors_means')
 matrix_df = pps.matrix(sup.iloc[:,ix])[['x', 'y', 'ppscore']].pivot(columns='x', index='y', values='ppscore')
 fig = plt.figure(figsize=(12,12))
 sns.heatmap(matrix_df, vmin=0, vmax=1, cmap="YlOrRd", linewidths=0.5, annot=True)
-plt.savefig('../graph/PPS_matrix_means')
+plt.savefig('../graph/PPS_matrix_means.jpg', dpi=150)
 
 
 # In[39]:

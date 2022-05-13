@@ -64,7 +64,7 @@ for comp_i in comp_it:
     pc_train = pca.transform(x_train)
     pc_train = pd.DataFrame(data = pc_train)
     cpca.append(len(pc_train.columns))
-    
+
 
 
 # In[24]:
@@ -76,7 +76,7 @@ plt.xlabel("$C_{comp}$", fontdict={'fontsize': 14})
 plt.ylabel("principal components", fontdict={'fontsize': 14})
 plt.grid()
 plt.xlim(0.8, 1.01)
-fig.savefig('../graph/Pca_Ccomp.jpg')
+fig.savefig('../graph/Pca_Ccomp.jpg', dpi=150)
 
 
 # In[25]:
@@ -137,7 +137,7 @@ ax.set_xticklabels(labels=colnum, rotation=90)
 ax.set_yticklabels(labels=pcs_train.index, rotation=0)
 ax.set_xlabel("orig. features", fontdict={'fontsize': 14})
 ax.set_ylabel("principal components", fontdict={'fontsize': 14})
-fig.savefig('../graph/Pca_mapping_heatmap.jpg')
+fig.savefig('../graph/Pca_mapping_heatmap.jpg', dpi=150)
 
 
 # In[31]:
@@ -151,7 +151,7 @@ plt.xticks(list(range(1,14)))
 plt.xlabel("principal components", fontdict={'fontsize': 14})
 plt.ylabel("explained variance", fontdict={'fontsize': 14})
 plt.annotate(f"explained ratio sum = {pca.explained_variance_ratio_.sum():.4f}", xy=(9,0.4), xycoords='data')
-fig.savefig('../graph/Pca_explained_var.jpg')
+fig.savefig('../graph/Pca_explained_var.jpg', dpi=150)
 
 
 # ## Heatmap of the correlation matrix of training after PCA

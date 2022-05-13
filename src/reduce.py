@@ -81,7 +81,7 @@ fig = plt.figure(figsize=(20,20))
 ax = sns.heatmap(crmx, cmap='YlOrRd', annot=True, xticklabels=colnum, yticklabels=colnum)
 ax.set_xticklabels(labels=colnum, rotation=90)
 ax.set_yticklabels(labels=colnum, rotation=0)
-fig.savefig('../graph/Corr_reduced_heatmap.jpg')
+fig.savefig('../graph/Corr_reduced_heatmap.jpg', dpi=150)
 
 
 # ## Output of elapsed time
