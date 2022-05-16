@@ -83,13 +83,14 @@ def knnhyp(x_train, x_test, y_train, y_test, kmin, kmax, outfile_log, outfile_da
         knn_surf.to_csv(outfile_dat, index=False)
         
     # graph output
-    fig = plt.figure(figsize=(6,6))
-    plt.title("kNN Hyperparameter Optimization")
+    fig = plt.figure(figsize=(8,8))
+    plt.title("kNN Hyperparameter Optimization", fontdict={'fontsize': 16})
     plt.plot(range(1,kmax+1), score)
-    plt.xlabel("k")
-    plt.ylabel("RMSE")
+    plt.xlabel("k", fontdict={'fontsize': 14})
+    plt.ylabel("RMSE", fontdict={'fontsize': 14})
     plt.xlim(0, kmax)
-    plt.xticks(range(0, kmax+1, kmax//10))
+    plt.xticks(range(0, kmax+1, kmax//10), fontsize=12)
+    plt.yticks(fontsize=12)
     fig.savefig(outfile_fig, dpi=150)
     
     # return values
