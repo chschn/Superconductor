@@ -4,7 +4,7 @@ This code is predicting the critical temperatures of superconductors and is base
 
 Following program and function structure exists:
 
-    (for further details see the docstrings of the python code)
+    (for further details see the docstrings and comments of the python code)
 
 <pre>
 
